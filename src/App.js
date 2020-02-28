@@ -31,16 +31,34 @@ class App extends Component {
   getVehicles() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+    axios.get('https://joes-autos.herokuapp.com/api/vehicles')
+    .then(response => {
+      toast.success('Got all vehicles')
+      this.setState({vehiclesToDisplay: response.data})
+    })
+    .catch(() => toast.error('Failed to get vehicles'))
   }
 
   getPotentialBuyers() {
     // axios (GET)
     // setState with response -> buyersToDisplay
+    axios.get('https://joes-autos.herokuapp.com/api/buyers')
+    .then(response => {
+      toast.success('Got potential buyers')
+      this.setState({buyersToDisplay: response.data})
+    })
+    .catch(() => toast.error('No potential buyers'))
   }
 
   sellCar(id) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
+    axios.delete(`https://joes-autos.herokuapp.com/api/vehicles/${id}`)
+    .then(response => {
+      toast.success('Sold car')
+      this.setState({vehiclesToDisplay: response.data.vehicles})
+    })
+    .catch(() => toast.error('Failed to sell car'))
   }
 
   filterByMake() {
@@ -48,6 +66,12 @@ class App extends Component {
 
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+    axios.get(`https://joes-autos.herokuapp.com/api/vehicles?make=${make}`)
+    .then(response => {
+      toast.success('Filtered')
+      this.setState({vehiclesToDisplay: response.data})
+    })
+    .catch(() => toast.error('Failed to filter'))
   }
 
   filterByColor() {
@@ -55,11 +79,23 @@ class App extends Component {
 
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+    axios.get(`https://joes-autos.herokuapp.com/api/vehicles?color=${color}`)
+    .then(response => {
+      toast.success('Filtered')
+      this.setState({vehiclesToDisplay: response.data})
+    })
+    .catch(() => toast.error('Failed to filter'))
   }
 
   updatePrice(priceChange, id) {
     // axios (PUT)
     // setState with response -> vehiclesToDisplay
+    axios.put(`https://joes-autos.herokuapp.com/api/vehicles/${id}/${priceChange}`)
+    .then(response => {
+      toast.success('Updated Price')
+      this.setState({vehiclesToDisplay: response.data.vehicles})
+    })
+    .catch(() => toast.error('Failed to update price'))
   }
 
   addCar() {
@@ -73,6 +109,12 @@ class App extends Component {
 
     // axios (POST)
     // setState with response -> vehiclesToDisplay
+    axios.post('https://joes-autos.herokuapp.com/api/vehicles', newCar)
+    .then(response => {
+      toast.success('Added car')
+      this.setState({vehiclesToDisplay: response.data.vehicles})
+    })
+    .catch(() => toast.error('Failed to add car'))
   }
 
   addBuyer() {
@@ -84,11 +126,23 @@ class App extends Component {
 
     //axios (POST)
     // setState with response -> buyersToDisplay
+    axios.post(`https://joes-autos.herokuapp.com/api/buyers`, newBuyer)
+    .then(response => {
+      toast.success('Added buyers')
+      this.setState({buyersToDisplay: response.data.buyers})
+    })
+    .catch(() => toast.error('Failed to add buyers'))
   }
 
   deleteBuyer(id) {
     // axios (DELETE)
     //setState with response -> buyersToDisplay
+    axios.delete(`https://joes-autos.herokuapp.com/api/buyers/${id}`)
+    .then(response => {
+      toast.success('Deleted buyers')
+      this.setState({buyersToDisplay: response.data.buyers})
+    })
+    .catch(() => toast.error('Failed to delete the buyers'))
   }
 
   nameSearch() {
@@ -96,6 +150,7 @@ class App extends Component {
 
     // axios (GET)
     // setState with response -> buyersToDisplay
+    axios.get(`https://joes-autos.herokuapp.com/api/vehicles?year=${year}`)
   }
 
   byYear() {
@@ -103,6 +158,12 @@ class App extends Component {
 
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+    axios.get(`https://joes-autos.herokuapp.com/api/vehicles?year=${year}`)
+    .then(response => {
+      toast.success('Filtered by year')
+      this.setState({vehiclesToDisplay: response.data})
+    })
+    .catch(() => toast.error('Failed to filter by year'))
   }
 
   // Do not edit the code below
